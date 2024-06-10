@@ -1,5 +1,11 @@
+import { Card } from "../Card";
+import { ListContainer } from "./styles";
+
 export function CoffeeList(){
     return(
-        <h1>Coffee list</h1>
+        <ListContainer>        
+            <h1>Nossos cafés</h1>
+            <Card/>
+        </ListContainer>
     )
 }

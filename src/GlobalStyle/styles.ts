@@ -8,6 +8,8 @@ export const GlobalStyle = createGlobalStyle`
     }
     body {
         background-color: ${props => props.theme.colors.base.background};
+        display: flex;
+        justify-content: center;
     }
     
 `

@@ -27,7 +27,7 @@ export const defaultTheme = {
         XL: css`
             font-family: "Baloo 2", sans-serif;
             font-weight: 800;
-            font-size: 2.6rem;
+            font-size: 3rem;
             line-height: 1.3
         `,
         L: css`
@@ -80,13 +80,13 @@ export const defaultTheme = {
             font-size: 1rem;
             line-height: 1.3;
         `,
-        S: css`
+        S_regular: css`
             font-family: "Roboto", sans-serif;
             font-weight: 400;
             font-size: 0.875rem;
             line-height: 1.3;
         `,
-        XS: css`
+        S_bold: css`
             font-family: "Roboto", sans-serif;
             font-weight: 700;
             font-size: 0.75rem;
@@ -97,6 +97,8 @@ export const defaultTheme = {
             font-weight: 700;
             font-size: 0.625rem;
             line-height: 1.3;
+            text-transform: uppercase;
+            color: ${props => props.theme.colors.brand.yellow_dark};
         `,
     },
     button:{
