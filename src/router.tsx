@@ -1,0 +1,17 @@
+import { Route, Routes } from "react-router-dom";
+import { ConfirmedOrder } from "./pages/ConfirmedOrder";
+import { Checkout } from "./pages/Checkout";
+import { Home } from "./pages/Home";
+import { DefaultLayout } from "./DefaultLayout";
+
+export function Router(){
+    return (
+        <Routes>
+            <Route path="/" element={<DefaultLayout/>}>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/checkout" element={<Checkout/>}/>
+                <Route path="/confirmedOrder" element={<ConfirmedOrder/>}/>
+            </Route>
+        </Routes>
+    )
+}
