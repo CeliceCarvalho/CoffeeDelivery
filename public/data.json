@@ -6,6 +6,7 @@
             "imgSrc": "/src/assets/Type_Expresso.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Tradicional"
                 }
             ],
@@ -18,6 +19,7 @@
             "imgSrc": "/src/assets/Type_Americano.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Tradicional"
                 }
             ],
@@ -30,6 +32,7 @@
             "imgSrc": "/src/assets/Type_ExpressoCremoso.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Tradicional"
                 }
             ],
@@ -42,9 +45,11 @@
             "imgSrc": "/src/assets/Type_CaféGelado.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Tradicional"
                 },
                 {
+                    "id": "1",
                     "name": "Gelado"
                 }
             ],
@@ -57,9 +62,11 @@
             "imgSrc": "/src/assets/Type_CafécomLeite.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Tradicional"
                 },
                 {
+                    "id": "1",
                     "name": "Com leite"
                 }
             ],
@@ -72,9 +79,11 @@
             "imgSrc": "/src/assets/Type_Latte.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Tradicional"
                 },
                 {
+                    "id": "1",
                     "name": "Com leite"
                 }
             ],
@@ -83,13 +92,15 @@
         },
         {
             "id": "6",
-            "name": "Latte",
+            "name": "Capuccino",
             "imgSrc": "/src/assets/Type_Capuccino.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Tradicional"
                 },
                 {
+                    "id": "1",
                     "name": "Com leite"
                 }
             ],
@@ -102,9 +113,11 @@
             "imgSrc": "/src/assets/Type_Macchiato.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Tradicional"
                 },
                 {
+                    "id": "1",
                     "name": "Com leite"
                 }
             ],
@@ -117,9 +130,11 @@
             "imgSrc": "/src/assets/Type_Mocaccino.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Tradicional"
                 },
                 {
+                    "id": "1",
                     "name": "Com leite"
                 }
             ],
@@ -132,9 +147,11 @@
             "imgSrc": "/src/assets/Type_ChocolateQuente.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Especial"
                 },
                 {
+                    "id": "1",
                     "name": "Com leite"
                 }
             ],
@@ -147,12 +164,15 @@
             "imgSrc": "/src/assets/Type_Cubano.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Especial"
                 },
                 {
+                    "id": "1",
                     "name": "Alcoólico"
                 },
                 {
+                    "id": "3",
                     "name": "Gelado"
                 }
             ],
@@ -165,6 +185,7 @@
             "imgSrc": "/src/assets/Type_Havaiano.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Especial"
                 }
             ],
@@ -172,11 +193,12 @@
             "price": 9.90
         },
         {
-            "id": "11",
+            "id": "12",
             "name": "Árabe",
             "imgSrc": "/src/assets/Type_Árabe.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Especial"
                 }
             ],
@@ -184,11 +206,12 @@
             "price": 9.90
         },
         {
-            "id": "12",
+            "id": "13",
             "name": "Irlandês",
             "imgSrc": "/src/assets/Type_Irlandês.svg",
             "tag":[
                 {
+                    "id": "0",
                     "name": "Especial"
                 }
             ],

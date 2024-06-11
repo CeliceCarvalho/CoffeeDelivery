@@ -89,7 +89,7 @@ export const Actions = styled.div`
 
 export const Counter = styled.div`
     display: flex;
-    gap: 8px;
+    gap: 4px;
     align-items: center;
 
     padding: 8px;
@@ -100,6 +100,11 @@ export const Counter = styled.div`
     p{
         ${props => props.theme.texts.M_regular}
         color: ${props => props.theme.colors.base.title};
+    }
+
+    div{
+        padding: 2px;
+        cursor: pointer;
     }
 `
 
