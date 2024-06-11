@@ -1,19 +1,37 @@
-import { Actions, BuyContainer, CardContainer, CartButton, Counter, Price, Tag } from "./styles";
+import { Actions, BuyContainer, CardContainer, CartButton, Counter, Price, Tag, Tags } from "./styles";
 import ExpressoCremoso from "../../../../assets/Type_Expresso.svg"
 import { Minus, Plus, ShoppingCart } from "@phosphor-icons/react";
 import { useTheme } from "styled-components";
 
+interface Props{
+    coffee:{
+        id: string,
+        name: string,
+        imgSrc: string,
+        tag: Tag[],
+        description: string,
+        price: number,
+    } 
+}
 
-export function Card(){
+interface Tag{
+    name: string
+}
+
+export function Card({coffee}: Props){
     const { colors } = useTheme()
 
     return(
         <CardContainer>
-            <img src={ExpressoCremoso} width={120}/>
-            <Tag>
-                <span>Tradicional</span>
-            </Tag>
-            <h2>Expresso Tradicional</h2>
+            <img src={coffee.imgSrc} width={120}/>
+            <Tags>
+                {coffee.tag.map((tag) => (
+                    <Tag>
+                        <span>{tag.name}</span>
+                    </Tag>
+                ))}
+            </Tags>
+            <h2>{coffee.name}</h2>
             <h6>O tradicional café feito com água quente e grãos moídos</h6>
             <BuyContainer>
                 <Price>

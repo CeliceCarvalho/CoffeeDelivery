@@ -1,11 +1,18 @@
 import { Card } from "../Card";
-import { ListContainer } from "./styles";
+import { ListContainer, Cards } from "./styles";
+import { coffees } from "../../../../../public/data.json"
+
+
 
 export function CoffeeList(){
     return(
         <ListContainer>        
             <h1>Nossos cafés</h1>
-            <Card/>
+            <Cards>
+                {coffees.map((coffee) => (
+                    <Card key={coffee.id} coffee={coffee}/>
+                ))}
+            </Cards>
         </ListContainer>
     )
 }

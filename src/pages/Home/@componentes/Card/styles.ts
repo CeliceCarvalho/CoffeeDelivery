@@ -33,6 +33,11 @@ export const CardContainer = styled.div`
 
 `
 
+export const Tags = styled.div `
+    display: flex;
+    gap: 4px;
+`
+
 export const Tag = styled.div`
     display: flex;
     align-items: center;
