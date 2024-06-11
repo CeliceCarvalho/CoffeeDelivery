@@ -22,7 +22,7 @@ export const LocationTagContainer = styled.div`
     }
 
     p{
-        ${props => props.theme.texts.S}
+        ${props => props.theme.texts.S_regular}
         color: ${props => props.theme.colors.brand.purple_dark};
     }
 

@@ -1,9 +1,12 @@
-import { BuyContainer, CardContainer, CartButton, Counter, Tag } from "./styles";
+import { Actions, BuyContainer, CardContainer, CartButton, Counter, Price, Tag } from "./styles";
 import ExpressoCremoso from "../../../../assets/Type_Expresso.svg"
 import { Minus, Plus, ShoppingCart } from "@phosphor-icons/react";
+import { useTheme } from "styled-components";
 
 
 export function Card(){
+    const { colors } = useTheme()
+
     return(
         <CardContainer>
             <img src={ExpressoCremoso} width={120}/>
@@ -11,22 +14,22 @@ export function Card(){
                 <span>Tradicional</span>
             </Tag>
             <h2>Expresso Tradicional</h2>
-            <p>O tradicional café feito com água quente e grãos moídos</p>
+            <h6>O tradicional café feito com água quente e grãos moídos</h6>
             <BuyContainer>
-                <div>
+                <Price>
                     <span>R$</span>
                     <h3>9,90</h3>
-                </div>
-                <div>
+                </Price>
+                <Actions>
                     <Counter>
-                        <Plus/>
+                        <Minus color={colors.brand.purple_dark}/>
                         <p>1</p>
-                        <Minus/>
+                        <Plus color={colors.brand.purple_dark}/>
                     </Counter>
                     <CartButton>
-                        <ShoppingCart/>
+                        <ShoppingCart size={22} weight="fill"/>
                     </CartButton>
-                </div>
+                </Actions>
             </BuyContainer>
         </CardContainer>
     )
