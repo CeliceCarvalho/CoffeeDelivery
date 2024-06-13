@@ -1,8 +1,8 @@
 import { Actions, BuyContainer, CardContainer, CartButton, Counter, Price, Tag, Tags } from "./styles";
 import { Minus, Plus, ShoppingCart } from "@phosphor-icons/react";
-import { produce } from "immer";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTheme } from "styled-components";
+import { CartContext } from "../../../../contexts/CartContext";
 
 interface Props{
     coffee:{
@@ -20,15 +20,22 @@ interface Tag{
     name: string
 }
 
-interface Cart{
+interface Item{
     id: string,
     quantity: number,
 }
 
 export function Card({coffee}: Props){
+    const { addNewItem, cart } = useContext(CartContext)
+
     const { colors } = useTheme()
     const [ Quantity, setQuantity ] = useState<number>(0)
-    const [ cart, setCart ] = useState<Cart[]>([])
+    const [ item, setItem ] = useState<Item>({
+        id: coffee.id,
+        quantity: 0
+    })
+
+    console.log(cart)
 
     function handleAddQuantity(){
         setQuantity(Quantity + 1)
@@ -37,30 +44,43 @@ export function Card({coffee}: Props){
     function handleRemoveQuantity(){
         setQuantity(Quantity - 1)
     }
+    
+    function AddNew(){
+        addNewItem({id: coffee.id, quantity: Quantity})
+    }
+    function handleUpdateQuantity(){
+        const updatedQuantity = Quantity + item.quantity
 
-    function handleAddToCart(){
-        const newItem: Cart = {
-            id: coffee.id,
-            quantity: Quantity,
-        }
+        setItem(state => ({...state, quantity: updatedQuantity}))
+
         /*const isNewItem =  cart.find( item => newItem.id == item.id)
-        console.log(isNewItem)*/
+        console.log(isNewItem)
 
         const itemAlreadyAdded = cart.find(item => newItem.id == item.id)
 
-        console.log(itemAlreadyAdded)
+        const indexItem = cart.findIndex(item => newItem.id == item.id)
+
 
         if(itemAlreadyAdded){
+            console.log("item já adicionado")
+            const updated: Cart = {
+                id: cart[indexItem].id,
+                quantity: cart[indexItem].quantity += Quantity
+            }
             itemAlreadyAdded.quantity += Quantity
+            cart[indexItem].quantity += Quantity
+            setCart(state => [...state, updated])
+            
         } else {
+            console.log('item novo')
+            setCart((state) => [...state, newItem])
             produce(cart, draft=>{
+                console.log(draft[0])
                 draft.push(newItem)
             })
-        }
+        }*/
+        
     }
-    console.log(cart)
-
-
 
     return(
         <CardContainer>
@@ -89,7 +109,7 @@ export function Card({coffee}: Props){
                             <Plus color={colors.brand.purple_dark} onClick={handleAddQuantity}/>
                         </div>
                     </Counter>
-                    <CartButton onClick={handleAddToCart}>
+                    <CartButton onClick={AddNew}>
                         <ShoppingCart size={22} weight="fill"/>
                     </CartButton>
                 </Actions>
