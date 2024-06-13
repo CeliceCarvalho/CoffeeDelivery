@@ -1,6 +1,6 @@
 import { Card } from "../Card";
 import { ListContainer, Cards } from "./styles";
-import { coffees } from "../../../../../public/data.json"
+import { coffees } from "../../../../data.json"
 
 
 
