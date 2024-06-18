@@ -1,8 +1,20 @@
-import { ActionsContainer, CartContainer, HeaderContainer, LocationTagContainer } from "./styles";
+import { ActionsContainer, CartContainer, HeaderContainer, LocationTagContainer, ItemsQuantity } from "./styles";
 import LogoCoffee from "../assets/logo.svg"
 import { MapPin, ShoppingCart } from "@phosphor-icons/react"
+import { useContext } from "react";
+import { CartContext } from "../contexts/CartContext";
 
 export function Header(){
+    const { cart } = useContext(CartContext)
+
+    function totalNumberOfItems(){
+        let total = 0
+        cart.items.map(item => {
+            return total+=item.quantity
+        })
+        return total
+    }
+
     return(
         <HeaderContainer>
             <img src={LogoCoffee}/>
@@ -13,6 +25,7 @@ export function Header(){
                 </LocationTagContainer>
                 <CartContainer>
                     <ShoppingCart size={22} weight="fill"/>
+                    {cart.items.length > 0 ? <ItemsQuantity>{totalNumberOfItems()}</ItemsQuantity> : null}
                 </CartContainer>
             </ActionsContainer>
         </HeaderContainer>

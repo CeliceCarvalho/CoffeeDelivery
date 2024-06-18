@@ -15,6 +15,7 @@ interface Item{
 interface CartContextType{
     cart: Cart
     addNewItem: (item: Item) => void
+    updateAlreadyAddedItem: (item: Item, indexItem: number) => void
 }
 
 interface CartContextProviderProps{
@@ -28,6 +29,11 @@ export function CartContextProvider({children}: CartContextProviderProps){
                 draft.items.push(action.payload.item)
             })
         }
+        if(action.type == "UPDATE_ITEM"){
+            return produce(state, draft => {
+                draft.items[action.payload.indexItem].quantity += action.payload.item.quantity
+            })
+        }
 
         return state
     },{
@@ -37,13 +43,25 @@ export function CartContextProvider({children}: CartContextProviderProps){
     function addNewItem(item: Item){
         dispach({
             type: "ADD_NEW_ITEM",
-            payload: item
+            payload: {
+                item,
+            }
+        })
+    }
+    function updateAlreadyAddedItem(item: Item, indexItem: number){
+        dispach({
+            type: "UPDATE_ITEM",
+            payload: {
+                item,
+                indexItem
+            }
         })
     }
 
     return(
         <CartContext.Provider value={{
             addNewItem,
+            updateAlreadyAddedItem,
             cart
         }}>
             {children}

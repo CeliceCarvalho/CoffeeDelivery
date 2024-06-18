@@ -106,6 +106,14 @@ export const Counter = styled.div`
         padding: 2px;
         cursor: pointer;
     }
+
+    svg{
+        color: ${props => props.theme.colors.brand.purple};
+        &:hover{
+            color: ${props => props.theme.colors.brand.purple_dark};
+            transition: 0.3s;
+        }
+    }
 `
 
 export const CartButton = styled.div`
@@ -115,6 +123,14 @@ export const CartButton = styled.div`
     padding: 8px;
     border-radius: 8px;
 
-    background-color: ${props => props.theme.colors.brand.purple_dark};
+    background-color: ${props => props.theme.colors.brand.purple};
     color: ${props => props.theme.colors.base.white};
+
+    cursor: pointer;
+
+    &:hover{
+        background-color: ${props => props.theme.colors.brand.purple_dark};
+        transition: 0.3s;
+    }
 `
+

@@ -26,16 +26,8 @@ interface Item{
 }
 
 export function Card({coffee}: Props){
-    const { addNewItem, cart } = useContext(CartContext)
-
-    const { colors } = useTheme()
+    const { addNewItem, updateAlreadyAddedItem, cart } = useContext(CartContext)
     const [ Quantity, setQuantity ] = useState<number>(0)
-    const [ item, setItem ] = useState<Item>({
-        id: coffee.id,
-        quantity: 0
-    })
-
-    console.log(cart)
 
     function handleAddQuantity(){
         setQuantity(Quantity + 1)
@@ -45,41 +37,20 @@ export function Card({coffee}: Props){
         setQuantity(Quantity - 1)
     }
     
-    function AddNew(){
-        addNewItem({id: coffee.id, quantity: Quantity})
-    }
-    function handleUpdateQuantity(){
-        const updatedQuantity = Quantity + item.quantity
-
-        setItem(state => ({...state, quantity: updatedQuantity}))
-
-        /*const isNewItem =  cart.find( item => newItem.id == item.id)
-        console.log(isNewItem)
-
-        const itemAlreadyAdded = cart.find(item => newItem.id == item.id)
-
-        const indexItem = cart.findIndex(item => newItem.id == item.id)
-
-
-        if(itemAlreadyAdded){
-            console.log("item já adicionado")
-            const updated: Cart = {
-                id: cart[indexItem].id,
-                quantity: cart[indexItem].quantity += Quantity
-            }
-            itemAlreadyAdded.quantity += Quantity
-            cart[indexItem].quantity += Quantity
-            setCart(state => [...state, updated])
-            
-        } else {
-            console.log('item novo')
-            setCart((state) => [...state, newItem])
-            produce(cart, draft=>{
-                console.log(draft[0])
-                draft.push(newItem)
-            })
-        }*/
+    function updateCart(){
+        const newItem: Item = {
+            id: coffee.id, 
+            quantity: Quantity
+        }
+        console.log(cart)
         
+        const isAlreadyAdded = cart.items.findIndex((item) => item.id == newItem.id)
+
+        if(isAlreadyAdded >= 0){
+            updateAlreadyAddedItem(newItem, isAlreadyAdded)
+        } else {
+            addNewItem(newItem)
+        }
     }
 
     return(
@@ -102,14 +73,14 @@ export function Card({coffee}: Props){
                 <Actions>
                     <Counter>
                         <div>
-                            <Minus color={colors.brand.purple_dark} onClick={handleRemoveQuantity}/>
+                            <Minus onClick={handleRemoveQuantity}/>
                         </div>
                         <p>{Quantity}</p>
                         <div>
-                            <Plus color={colors.brand.purple_dark} onClick={handleAddQuantity}/>
+                            <Plus onClick={handleAddQuantity}/>
                         </div>
                     </Counter>
-                    <CartButton onClick={AddNew}>
+                    <CartButton onClick={updateCart}>
                         <ShoppingCart size={22} weight="fill"/>
                     </CartButton>
                 </Actions>

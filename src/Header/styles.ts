@@ -48,5 +48,22 @@ export const CartContainer = styled.div`
     }
 
     background-color: ${props => props.theme.colors.brand.yellow_light};
+`
 
+export const ItemsQuantity = styled.div`
+    position: absolute;
+
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: ${props => props.theme.colors.brand.yellow_dark};
+    color: ${props => props.theme.colors.base.white};
+    ${props => props.theme.texts.S_bold}
+
+    transform: translate(90%, -90%);
 `
