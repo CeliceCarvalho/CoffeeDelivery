@@ -1,7 +1,6 @@
 import { Actions, BuyContainer, CardContainer, CartButton, Counter, Price, Tag, Tags } from "./styles";
 import { Minus, Plus, ShoppingCart } from "@phosphor-icons/react";
 import { useContext, useState } from "react";
-import { useTheme } from "styled-components";
 import { CartContext } from "../../../../contexts/CartContext";
 
 interface Props{

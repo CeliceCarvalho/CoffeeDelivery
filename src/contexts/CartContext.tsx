@@ -1,5 +1,5 @@
 import { produce } from "immer";
-import { ReactNode, createContext, useReducer } from "react";
+import { ReactNode, createContext, useReducer, useState } from "react";
 
 export const CartContext = createContext({} as CartContextType)
 
@@ -23,6 +23,7 @@ interface CartContextProviderProps{
 }
 
 export function CartContextProvider({children}: CartContextProviderProps){
+
     const [cart, dispach] = useReducer((state: Cart, action: any) => {
         if(action.type == "ADD_NEW_ITEM"){
             return produce(state, draft => {

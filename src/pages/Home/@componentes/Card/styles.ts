@@ -92,6 +92,8 @@ export const Counter = styled.div`
     gap: 4px;
     align-items: center;
 
+    max-width: 66px;
+
     padding: 8px;
     border-radius: 6px;
 
