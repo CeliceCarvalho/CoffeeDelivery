@@ -4,13 +4,10 @@ export const CardContainer = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-
     margin-top: 54px;
-
     width: 256px;
     height: 310px;
     border-radius: 6px 36px;
-
     padding: 0 24px 24px 24px;
 
     background-color: ${props => props.theme.colors.base.card};
@@ -51,6 +48,7 @@ export const Tag = styled.div`
 
     span{
         ${props => props.theme.texts.tag}
+        color: ${props => props.theme.colors.brand.yellow_dark}
     }
 `
 
