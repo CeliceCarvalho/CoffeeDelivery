@@ -14,7 +14,7 @@ export const defaultTheme = {
             subtitle: '#403937',
             title: '#272221',
         },
-    brand:{
+        brand:{
             purple_dark: '#4B2995',
             purple: '#8047F8',
             purple_light: '#EBE5F9',
@@ -98,7 +98,6 @@ export const defaultTheme = {
             font-size: 0.625rem;
             line-height: 1.3;
             text-transform: uppercase;
-            color: ${props => props.theme.colors.brand.yellow_dark};
         `,
     },
     button:{
@@ -115,4 +114,4 @@ export const defaultTheme = {
             line-height: 1.6;
         `
     }
-}
+} as const
