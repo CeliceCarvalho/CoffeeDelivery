@@ -4,87 +4,121 @@ import { useContext, useState } from "react";
 import { useTheme } from "styled-components";
 import { CartContext } from "../../../../contexts/CartContext";
 
-interface Props{
-    coffee:{
-        id: string,
-        name: string,
-        imgSrc: string,
-        tag: Tag[],
-        description: string,
-        price: number,
-    } 
+interface Props {
+  coffee: {
+    id: string;
+    name: string;
+    imgSrc: string;
+    tag: Tag[];
+    description: string;
+    price: number;
+  };
 }
 
-interface Tag{
-    id: string,
-    name: string
+interface Tag {
+  id: string;
+  name: string;
 }
 
-interface Item{
-    id: string,
-    quantity: number,
+interface Item {
+  id: string;
+  quantity: number;
 }
 
-export function Card({coffee}: Props){
-    const { addNewItem, updateAlreadyAddedItem, cart } = useContext(CartContext)
-    const [ Quantity, setQuantity ] = useState<number>(0)
+export function Card({ coffee }: Props) {
+  const { addNewItem, cart } = useContext(CartContext);
 
-    function handleAddQuantity(){
-        setQuantity(Quantity + 1)
-    }
+  const { colors } = useTheme();
+  const [Quantity, setQuantity] = useState<number>(0);
+  const [item, setItem] = useState<Item>({
+    id: coffee.id,
+    quantity: 0,
+  });
 
-    function handleRemoveQuantity(){
-        setQuantity(Quantity - 1)
-    }
-    
-    function updateCart(){
-        const newItem: Item = {
-            id: coffee.id, 
-            quantity: Quantity
-        }
-        console.log(cart)
-        
-        const isAlreadyAdded = cart.items.findIndex((item) => item.id == newItem.id)
+  console.log(cart);
 
-        if(isAlreadyAdded >= 0){
-            updateAlreadyAddedItem(newItem, isAlreadyAdded)
+  function handleAddQuantity() {
+    setQuantity(Quantity + 1);
+  }
+
+  function handleRemoveQuantity() {
+    setQuantity(Quantity - 1);
+  }
+
+  function AddNew() {
+    addNewItem({ id: coffee.id, quantity: Quantity });
+  }
+  function handleUpdateQuantity() {
+    const updatedQuantity = Quantity + item.quantity;
+
+    setItem((state) => ({ ...state, quantity: updatedQuantity }));
+
+    /*const isNewItem =  cart.find( item => newItem.id == item.id)
+        console.log(isNewItem)
+
+        const itemAlreadyAdded = cart.find(item => newItem.id == item.id)
+
+        const indexItem = cart.findIndex(item => newItem.id == item.id)
+
+
+        if(itemAlreadyAdded){
+            console.log("item já adicionado")
+            const updated: Cart = {
+                id: cart[indexItem].id,
+                quantity: cart[indexItem].quantity += Quantity
+            }
+            itemAlreadyAdded.quantity += Quantity
+            cart[indexItem].quantity += Quantity
+            setCart(state => [...state, updated])
+            
         } else {
-            addNewItem(newItem)
-        }
-    }
+            console.log('item novo')
+            setCart((state) => [...state, newItem])
+            produce(cart, draft=>{
+                console.log(draft[0])
+                draft.push(newItem)
+            })
+        }*/
+  }
 
-    return(
-        <CardContainer>
-            <img src={coffee.imgSrc} width={120}/>
-            <Tags>
-                {coffee.tag.map((tag) => (
-                    <Tag key={tag.id}>
-                        <span>{tag.name}</span>
-                    </Tag>
-                ))}
-            </Tags>
-            <h2>{coffee.name}</h2>
-            <h6>O tradicional café feito com água quente e grãos moídos</h6>
-            <BuyContainer>
-                <Price>
-                    <span>R$</span>
-                    <h3>9,90</h3>
-                </Price>
-                <Actions>
-                    <Counter>
-                        <div>
-                            <Minus onClick={handleRemoveQuantity}/>
-                        </div>
-                        <p>{Quantity}</p>
-                        <div>
-                            <Plus onClick={handleAddQuantity}/>
-                        </div>
-                    </Counter>
-                    <CartButton onClick={updateCart}>
-                        <ShoppingCart size={22} weight="fill"/>
-                    </CartButton>
-                </Actions>
-            </BuyContainer>
-        </CardContainer>
-    )
+  return (
+    <CardContainer>
+      <img src={coffee.imgSrc} width={120} />
+      <Tags>
+        {coffee.tag.map((tag) => (
+          <Tag key={tag.id}>
+            <span>{tag.name}</span>
+          </Tag>
+        ))}
+      </Tags>
+      <h2>{coffee.name}</h2>
+      <h6>O tradicional café feito com água quente e grãos moídos</h6>
+      <BuyContainer>
+        <Price>
+          <span>R$</span>
+          <h3>9,90</h3>
+        </Price>
+        <Actions>
+          <Counter>
+            <div>
+              <Minus
+                color={colors.brand.purple_dark}
+                onClick={handleRemoveQuantity}
+              />
+            </div>
+            <p>{Quantity}</p>
+            <div>
+              <Plus
+                color={colors.brand.purple_dark}
+                onClick={handleAddQuantity}
+              />
+            </div>
+          </Counter>
+          <CartButton onClick={AddNew}>
+            <ShoppingCart size={22} weight="fill" />
+          </CartButton>
+        </Actions>
+      </BuyContainer>
+    </CardContainer>
+  );
 }
