@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { NavLink } from "react-router-dom"
 import * as zod from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
+import TextField from "@mui/material/TextField"
 
 import imgExpresso from '../../assets/Type_Expresso.svg'
 import { AdressFormContainer, CheckoutContainer } from "./styles"
@@ -51,26 +52,26 @@ export function Checkout(){
                         </div>
                     </header>
                     <form onSubmit={handleSubmit(setAdress)}>
-                        <input 
+                        <TextField 
                             type="text" 
                             placeholder="CEP"
                             id="cep"
                             {...register('cep')}
                         />
-                        <input
+                        <TextField
                             type="text"
                             placeholder="Rua" 
                             id="rua"
                             {...register('rua')}
                         />
                         <div>
-                            <input 
+                            <TextField 
                                 type="number" 
                                 placeholder="Número"
                                 id="numero"
                                 {...register('numero', {valueAsNumber: true})}
                             />
-                            <input 
+                            <TextField 
                                 type="text" 
                                 placeholder="Complemento"
                                 id="comp"
@@ -78,19 +79,19 @@ export function Checkout(){
                             />
                         </div>
                         <div>
-                            <input 
+                            <TextField 
                                 type="text" 
                                 placeholder="Bairro"
                                 id="bairro"
                                 {...register('bairro')}
                             />
-                            <input 
+                            <TextField 
                                 type="text" 
                                 placeholder="Cidade" 
                                 id="cidade"
                                 {...register('cidade')}
                             />
-                            <input 
+                            <TextField 
                                 type="text" 
                                 placeholder="UF"
                                 id="uf"
