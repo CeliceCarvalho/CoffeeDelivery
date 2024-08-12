@@ -6,10 +6,10 @@ import { useForm } from "react-hook-form"
 import { NavLink } from "react-router-dom"
 import * as zod from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
-import TextField from "@mui/material/TextField"
 
 import imgExpresso from '../../assets/Type_Expresso.svg'
-import { AdressFormContainer, CheckoutContainer } from "./styles"
+import { CheckoutContainer, FormContainer, TextFieldStyled, PaymentOptions } from "./styles"
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material"
 
 
 const deliveryAdressValidationSchema = zod.object({
@@ -43,7 +43,7 @@ export function Checkout(){
         <CheckoutContainer>
             <section>
                 <h1>Complete seu pedido</h1>
-                <AdressFormContainer>
+                <FormContainer>
                     <header>
                         <MapPinLine/>
                         <div>
@@ -52,26 +52,30 @@ export function Checkout(){
                         </div>
                     </header>
                     <form onSubmit={handleSubmit(setAdress)}>
-                        <TextField 
+                        <TextFieldStyled 
+                            style={{width: "28%"}}
                             type="text" 
                             placeholder="CEP"
                             id="cep"
                             {...register('cep')}
                         />
-                        <TextField
+                        <TextFieldStyled
+                            style={{flex: 1}}
                             type="text"
                             placeholder="Rua" 
                             id="rua"
                             {...register('rua')}
                         />
                         <div>
-                            <TextField 
+                            <TextFieldStyled 
+                                style={{width: "28%"}}
                                 type="number" 
                                 placeholder="Número"
                                 id="numero"
                                 {...register('numero', {valueAsNumber: true})}
                             />
-                            <TextField 
+                            <TextFieldStyled 
+                                style={{flex: 1}}
                                 type="text" 
                                 placeholder="Complemento"
                                 id="comp"
@@ -79,19 +83,22 @@ export function Checkout(){
                             />
                         </div>
                         <div>
-                            <TextField 
+                            <TextFieldStyled
+                                style={{width: "28%"}} 
                                 type="text" 
                                 placeholder="Bairro"
                                 id="bairro"
                                 {...register('bairro')}
                             />
-                            <TextField 
+                            <TextFieldStyled 
+                                style={{flex: 1}}
                                 type="text" 
                                 placeholder="Cidade" 
                                 id="cidade"
                                 {...register('cidade')}
                             />
-                            <TextField 
+                            <TextFieldStyled 
+                                style={{width: 60}} 
                                 type="text" 
                                 placeholder="UF"
                                 id="uf"
@@ -107,8 +114,8 @@ export function Checkout(){
                             Submit
                         </button>
                     </form>
-                </AdressFormContainer>
-                <div>
+                </FormContainer>
+                <FormContainer>
                     <header>
                         <CurrencyDollar/>
                         <div>
@@ -116,21 +123,27 @@ export function Checkout(){
                             <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
                         </div>
                     </header>
-                    <section>
-                        <button>
-                            <CreditCard size={16}/>
-                            CARTÃO DE CRÉDITO
-                        </button>
-                        <button>
-                            <Bank size={16}/>
-                            CARTÃO DE DÉBITO
-                        </button>
-                        <button>
-                            <Money size={16}/>
-                            DINHEIRO
-                        </button>
-                    </section>
-                </div>
+                    <PaymentOptions>
+                        <FormControlLabel label='' value="credit" control={
+                            <button>
+                                <CreditCard size={16}/>
+                                 <p>CARTÃO DE CRÉDITO</p>
+                            </button>
+                        }/>
+                        <FormControlLabel label='' value="debit" control={
+                            <button>
+                                <Bank size={16}/>
+                                <p>CARTÃO DE DÉBITO</p>
+                            </button>
+                        }/>
+                        <FormControlLabel label='' value="cash" control={
+                            <button>
+                                <Money size={16}/>
+                                <p>DINHEIRO</p>
+                            </button>
+                        }/>
+                    </PaymentOptions>
+                </FormContainer>
             </section>
             <div>
                 <h1>Cafés selecionados</h1>

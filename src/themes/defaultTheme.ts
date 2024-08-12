@@ -110,7 +110,7 @@ export const defaultTheme = {
         M: css`
             font-family: "Roboto", sans-serif;
             font-weight: 400;
-            font-size: 0.625rem;
+            font-size: 0.750rem;
             line-height: 1.6;
         `
     }
