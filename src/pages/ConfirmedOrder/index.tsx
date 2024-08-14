@@ -7,13 +7,14 @@ export function ConfirmedOrder(){
 
     return(
         <div>
-            <h1>{deliveryAdress.bairro}</h1>
+            <h1>{deliveryAdress.neighborhood}</h1>
             <h1>{deliveryAdress.cep}</h1>
-            <h1>{deliveryAdress.cidade}</h1>
+            <h1>{deliveryAdress.city}</h1>
             <h1>{deliveryAdress.comp}</h1>
-            <h1>{deliveryAdress.numero}</h1>
-            <h1>{deliveryAdress.rua}</h1>
+            <h1>{deliveryAdress.number}</h1>
+            <h1>{deliveryAdress.street}</h1>
             <h1>{deliveryAdress.uf}</h1>
+            <h1>{deliveryAdress.paymentType}</h1>
         </div>
     )
 }

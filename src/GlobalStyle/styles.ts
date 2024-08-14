@@ -11,5 +11,9 @@ export const GlobalStyle = createGlobalStyle`
         display: flex;
         justify-content: center;
     }
+    :focus{
+        outline: 0;
+        box-shadow: 0 0 0 2px ${props => props.theme.colors.brand.purple};
+    }
     
 `

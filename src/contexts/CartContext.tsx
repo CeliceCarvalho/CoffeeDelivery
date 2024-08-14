@@ -14,12 +14,13 @@ interface Item{
 
 interface DeliveryAdress{
     cep: string,
-    rua: string,
-    numero: number,
+    street: string,
+    number: number,
     comp: string,
-    bairro: string,
-    cidade: string,
-    uf: string
+    neighborhood: string,
+    city: string,
+    uf: string,
+    paymentType: string,
 }
 
 interface CartContextType{
@@ -79,12 +80,13 @@ export function CartContextProvider({children}: CartContextProviderProps){
 
     const [deliveryAdress, setAdress] = useState({
         cep: "",
-        rua: '',
-        numero: 0,
+        street: '',
+        number: 0,
         comp:'',
-        bairro: '',
-        cidade: '',
+        neighborhood: '',
+        city: '',
         uf: '',
+        paymentType: '',
     });
 
     console.log(deliveryAdress)
