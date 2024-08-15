@@ -2,19 +2,21 @@ import { Minus, Plus, Trash } from "@phosphor-icons/react"
 import { Counter } from "../Home/@componentes/Card/styles"
 import { CheckoutContainer, ChosenCoffees, ChosenCoffeesCard } from "./styles"
 import { PersonalForm } from "./@components/PersonalForm"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { CartContext } from "../../contexts/CartContext"
 import { coffees } from "../../data.json"
 
 export function Checkout(){
     const {cart} = useContext(CartContext)
-    const [ total, setTotal] = useState(0)
 
-    function setTotalValue(price: number){
-        setTotal(total =>{
-            return total + price
-        })
-    }
+    const total = cart.items.reduce((acc, item) => {
+        const CoffeeInCart = coffees.find(coffee => coffee.id === item.id)
+        if(CoffeeInCart){
+            return acc + item.quantity * parseFloat(CoffeeInCart.price.replace(',', '.'))
+        }else{
+            return 0
+        }
+    }, 0)
 
     return(
         <CheckoutContainer>
@@ -28,7 +30,6 @@ export function Checkout(){
                             const quantity = itemInCart ? itemInCart.quantity : 0
 
                             if(itemInCart){
-                                /*setTotal(prevTotal => prevTotal + parseFloat(coffee.price.replace(',', '.')))*/
                                 return(
                                     <div>
                                         <img src={coffee.imgSrc} />
@@ -52,7 +53,7 @@ export function Checkout(){
                     </section>
                     <section>
                         <span>Total de itens</span>
-                        <p>R$ {total}</p>
+                        <p>R$ {total.toFixed(2).replace('.',',')}</p>
                     </section>
                     <section>
                         <span>Entrega</span>
