@@ -32,7 +32,7 @@ export function Card({coffee}: Props){
         setQuantity(Quantity + 1)
     }
 
-    function handleRemoveQuantity(){
+    function handleReduceQuantity(){
         setQuantity(Quantity - 1)
     }
     
@@ -46,7 +46,7 @@ export function Card({coffee}: Props){
         const isAlreadyAdded = cart.items.findIndex((item) => item.id == newItem.id)
 
         if(isAlreadyAdded >= 0){
-            updateAlreadyAddedItem(newItem, isAlreadyAdded)
+            updateAlreadyAddedItem(newItem)
         } else {
             addNewItem(newItem)
         }
@@ -72,7 +72,7 @@ export function Card({coffee}: Props){
                 <Actions>
                     <Counter>
                         <div>
-                            <Minus onClick={handleRemoveQuantity}/>
+                            <Minus onClick={handleReduceQuantity}/>
                         </div>
                         <p>{Quantity}</p>
                         <div>

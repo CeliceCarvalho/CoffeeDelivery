@@ -22,7 +22,7 @@ type deliveryAdressData = zod.infer<typeof deliveryAdressValidationSchema>
 
 export function PersonalForm(){
     const { setDeliveryAdress } = useContext(CartContext)
-    const { register, handleSubmit, watch, control } = useForm<deliveryAdressData>({
+    const { register, handleSubmit, control } = useForm<deliveryAdressData>({
         resolver: zodResolver(deliveryAdressValidationSchema),
     })
 

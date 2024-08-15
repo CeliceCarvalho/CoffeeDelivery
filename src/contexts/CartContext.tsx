@@ -26,7 +26,8 @@ interface DeliveryAdress{
 interface CartContextType{
     cart: Cart
     addNewItem: (item: Item) => void
-    updateAlreadyAddedItem: (item: Item, indexItem: number) => void
+    updateAlreadyAddedItem: (item: Item) => void
+    removeItem: (item: Item) => void
     deliveryAdress: DeliveryAdress
     setDeliveryAdress: (data: DeliveryAdress) => void
 }
@@ -45,7 +46,14 @@ export function CartContextProvider({children}: CartContextProviderProps){
         }
         if(action.type == "UPDATE_ITEM"){
             return produce(state, draft => {
-                draft.items[action.payload.indexItem].quantity += action.payload.item.quantity
+                const indexItem = draft.items.findIndex(item => item.id === action.payload.item.id)
+                draft.items[indexItem].quantity = action.payload.item.quantity
+            })
+        }
+        if(action.type === "REMOVE_ITEM"){
+            return produce(state, draft => {
+                const indexItem = draft.items.findIndex(item => item.id === action.payload.item.id)
+                draft.items.splice(indexItem)
             })
         }
 
@@ -62,17 +70,24 @@ export function CartContextProvider({children}: CartContextProviderProps){
             }
         })
     }
-    function updateAlreadyAddedItem(item: Item, indexItem: number){
+    
+    function updateAlreadyAddedItem(item: Item){
         dispach({
             type: "UPDATE_ITEM",
             payload: {
-                item,
-                indexItem
+                item
             }
         })
     }
 
-  
+    function removeItem(item: Item){
+        dispach({
+            type: "REMOVE_ITEM",
+            payload:{
+                item
+            }
+        })
+    }
 
     function setDeliveryAdress(data: DeliveryAdress){
         setAdress(data)
@@ -97,6 +112,7 @@ export function CartContextProvider({children}: CartContextProviderProps){
             cart,
             deliveryAdress,
             setDeliveryAdress,
+            removeItem
         }}>
             {children}
         </CartContext.Provider>
