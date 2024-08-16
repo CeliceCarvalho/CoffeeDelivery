@@ -8,6 +8,8 @@ export const HeaderContainer = styled.div`
 
     padding: 32px 0;
     max-height: 104px;
+
+    width: 100%;
 `
 export const LocationTagContainer = styled.div`
     display: flex;

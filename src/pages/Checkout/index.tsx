@@ -1,13 +1,40 @@
 import { Minus, Plus, Trash } from "@phosphor-icons/react";
 import { Counter } from "../Home/@componentes/Card/styles";
-import { CheckoutContainer, ChosenCoffee, ChosenCoffees, ChosenCoffeesCard, ConfirmerButton, Container, DeleteButton, XContainer } from "./styles";
+import {
+  CheckoutContainer,
+  ChosenCoffees,
+  ChosenCoffeesCard,
+  ConfirmerButton,
+  DeleteButton,
+  CoffeeInCart,
+  CoffeePrice,
+  Prices,
+} from "./styles";
 import { PersonalForm } from "./@components/PersonalForm";
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { coffees } from "../../data.json";
+import { useNavigate } from "react-router-dom";
+interface DeliveryAdress{
+  cep: string,
+  street: string,
+  number: number,
+  comp: string,
+  neighborhood: string,
+  city: string,
+  uf: string,
+  paymentType: string,
+}
 
 export function Checkout() {
-  const { cart, updateAlreadyAddedItem, removeItem } = useContext(CartContext);
+  const { cart, updateAlreadyAddedItem, removeItem, handleSubmit, setDeliveryAdress } = useContext(CartContext);
+  const navigate = useNavigate()
+
+  function setAdress(data: DeliveryAdress){
+    setDeliveryAdress(data)
+
+    navigate('/ConfirmedOrder')
+  }
 
   const subTotal = cart.items.reduce((acc, item) => {
     const CoffeeInCart = coffees.find((coffee) => coffee.id === item.id);
@@ -55,48 +82,51 @@ export function Checkout() {
               const quantity = itemInCart ? itemInCart.quantity : 0;
               if (itemInCart) {
                 return (
-                  <ChosenCoffee>
-                    <img src={coffee.imgSrc}/>
+                  <CoffeeInCart>
+                    <img src={coffee.imgSrc} />
                     <article>
-                        <p>{coffee.name}</p>
-                        <section>
-                            <Counter>
-                                <Minus
-                                    onClick={() => handleUpdateQuantity(coffee.id, -1)}
-                                />
-                                <p>{quantity}</p>
-                                <Plus
-                                    onClick={() => handleUpdateQuantity(coffee.id, 1)}
-                                />
-                            </Counter>
-                            <DeleteButton onClick={() => handleRemoveItem(coffee.id)}>
-                                <Trash size={16} />
-                                <h6>REMOVER</h6>
-                            </DeleteButton>
-                        </section>
+                      <p>{coffee.name}</p>
+                      <section>
+                        <Counter>
+                          <Minus
+                            onClick={() => handleUpdateQuantity(coffee.id, -1)}
+                          />
+                          <p>{quantity}</p>
+                          <Plus
+                            onClick={() => handleUpdateQuantity(coffee.id, 1)}
+                          />
+                        </Counter>
+                        <DeleteButton
+                          onClick={() => handleRemoveItem(coffee.id)}
+                        >
+                          <Trash size={16} />
+                          <h6>REMOVER</h6>
+                        </DeleteButton>
+                      </section>
                     </article>
-                    
-                    <span>R$ {coffee.price}</span>
-                  </ChosenCoffee>
+                    <CoffeePrice>R$ {coffee.price}</CoffeePrice>
+                  </CoffeeInCart>
                 );
               }
             })}
           </section>
-            <article>
+          <Prices>
             <section>
-                <span>Total de itens</span>
-                <p>R$ {subTotal.toFixed(2).replace(".", ",")}</p>
+              <span>Total de itens</span>
+              <p>R$ {subTotal.toFixed(2).replace(".", ",")}</p>
             </section>
             <section>
-                <span>Entrega</span>
-                <p>R$ 3,50</p>
+              <span>Entrega</span>
+              <p>R$ 3,50</p>
             </section>
             <section>
-                <strong>Total</strong>
-                <strong>R$ {total.toFixed(2).replace(".", ",")}</strong>
+              <strong>Total</strong>
+              <strong>R$ {total.toFixed(2).replace(".", ",")}</strong>
             </section>
-            </article>
-          <ConfirmerButton><p>CONFIRMAR PEDIDO</p></ConfirmerButton>
+          </Prices>
+            <ConfirmerButton onClick={handleSubmit(setAdress)}>
+              <p>CONFIRMAR PEDIDO</p>
+            </ConfirmerButton>
         </ChosenCoffeesCard>
       </ChosenCoffees>
     </CheckoutContainer>

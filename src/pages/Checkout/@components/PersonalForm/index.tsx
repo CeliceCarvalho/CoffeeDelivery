@@ -1,36 +1,15 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "@phosphor-icons/react"
 import { FormContainer, FormTextField, PaymentOptions, PaymentOptionsButton } from "./styles"
 import { NavLink } from "react-router-dom"
-import { Controller, useForm } from "react-hook-form"
+import { Controller } from "react-hook-form"
 import { useContext } from "react"
 import { CartContext } from "../../../../contexts/CartContext"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as zod from 'zod'
-
-const deliveryAdressValidationSchema = zod.object({
-    cep: zod.string().min(1, 'Informe o cep'),
-    street: zod.string().min(1, 'Informe a street'),
-    number: zod.number(),
-    comp: zod.string().min(1, 'Informe o complemento'),
-    neighborhood: zod.string().min(1, 'Informe o neighborhood'),
-    city: zod.string().min(1, 'Informe a city'),
-    uf: zod.string().min(1, 'Informe a unidade federativa'),
-    paymentType: zod.string()
-})
-
-type deliveryAdressData = zod.infer<typeof deliveryAdressValidationSchema>
 
 export function PersonalForm(){
-    const { setDeliveryAdress } = useContext(CartContext)
-    const { register, handleSubmit, control } = useForm<deliveryAdressData>({
-        resolver: zodResolver(deliveryAdressValidationSchema),
-    })
+    const { register, control } = useContext(CartContext)
 
-    function setAdress(data: deliveryAdressData){
-        setDeliveryAdress(data)
-    }
     return(
-        <section style={{width: "60%"}}>
+        <form>
             <h1>Complete seu pedido</h1>
             <FormContainer>
                 <header>
@@ -40,7 +19,7 @@ export function PersonalForm(){
                         <p>Informe o endereço onde deseja receber seu pedido</p>
                     </div>
                 </header>
-                    <form onSubmit={handleSubmit(setAdress)}>
+                    <article>
                         <FormTextField 
                             style={{width: "28%"}}
                             type="text" 
@@ -99,10 +78,7 @@ export function PersonalForm(){
                                 Ir
                             </button>
                         </NavLink>
-                        <button type="submit">
-                            Submit
-                        </button>
-                    </form>
+                    </article>
                 </FormContainer>
                 <FormContainer>
                     <header>
@@ -119,15 +95,15 @@ export function PersonalForm(){
                             render={({field}) => {
                                 return (
                                     <PaymentOptions onValueChange={field.onChange} value={field.value}>
-                                        <PaymentOptionsButton value="credit">
+                                        <PaymentOptionsButton value="Cartão de Crédito">
                                             <CreditCard size={16}/>
                                             <p>CARTÃO DE CRÉDITO</p>
                                         </PaymentOptionsButton>
-                                        <PaymentOptionsButton value="debit">
+                                        <PaymentOptionsButton value="Cartão de Débito">
                                             <Bank size={16}/>
                                             <p>CARTÃO DE DÉBITO</p>
                                         </PaymentOptionsButton>
-                                        <PaymentOptionsButton value="cash">
+                                        <PaymentOptionsButton value="Dinheiro">
                                             <Money size={16}/>
                                             <p>DINHEIRO</p>
                                         </PaymentOptionsButton>
@@ -137,6 +113,6 @@ export function PersonalForm(){
                         />
                     </section>     
                 </FormContainer>
-        </section>
+        </form>
     )
 }

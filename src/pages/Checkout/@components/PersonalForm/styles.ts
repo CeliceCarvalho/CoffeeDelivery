@@ -24,7 +24,7 @@ export const FormContainer = styled.div`
         }
     }
 
-    form{
+    article{
         display: flex;
         flex-direction: column;
         gap: 16px;

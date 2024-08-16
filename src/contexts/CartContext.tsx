@@ -1,7 +1,23 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { produce } from "immer";
 import { ReactNode, createContext, useReducer, useState } from "react";
+import { Control, useForm, UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
+import * as zod from 'zod'
 
 export const CartContext = createContext({} as CartContextType)
+
+const deliveryAdressValidationSchema = zod.object({
+    cep: zod.string().min(1, 'Informe o cep'),
+    street: zod.string().min(1, 'Informe a street'),
+    number: zod.number(),
+    comp: zod.string().min(1, 'Informe o complemento'),
+    neighborhood: zod.string().min(1, 'Informe o neighborhood'),
+    city: zod.string().min(1, 'Informe a city'),
+    uf: zod.string().min(1, 'Informe a unidade federativa'),
+    paymentType: zod.string()
+})
+
+type deliveryAdressData = zod.infer<typeof deliveryAdressValidationSchema>
 
 interface Cart{
     items: Item[]
@@ -12,33 +28,36 @@ interface Item{
     quantity: number,
 }
 
-interface DeliveryAdress{
-    cep: string,
-    street: string,
-    number: number,
-    comp: string,
-    neighborhood: string,
-    city: string,
-    uf: string,
-    paymentType: string,
-}
 
 interface CartContextType{
     cart: Cart
     addNewItem: (item: Item) => void
     updateAlreadyAddedItem: (item: Item) => void
     removeItem: (item: Item) => void
-    deliveryAdress: DeliveryAdress
-    setDeliveryAdress: (data: DeliveryAdress) => void
+    deliveryAdress: deliveryAdressData
+    setDeliveryAdress: (data: deliveryAdressData) => void
+    register: UseFormRegister<deliveryAdressData>
+    handleSubmit: UseFormHandleSubmit<deliveryAdressData>
+    control: Control<deliveryAdressData>
 }
 
 interface CartContextProviderProps{
     children: ReactNode
 }
 
+interface Payload{
+    item: Item
+}
+
+type Action = 
+    | {type: "ADD_NEW_ITEM"; payload: Payload}
+    | {type: "UPDATE_ITEM"; payload: Payload}
+    | {type: "REMOVE_ITEM"; payload: Payload}
+
+
 export function CartContextProvider({children}: CartContextProviderProps){
 
-    const [cart, dispach] = useReducer((state: Cart, action: any) => {
+    const [cart, dispach] = useReducer((state: Cart, action: Action) => {
         if(action.type == "ADD_NEW_ITEM"){
             return produce(state, draft => {
                 draft.items.push(action.payload.item)
@@ -89,7 +108,7 @@ export function CartContextProvider({children}: CartContextProviderProps){
         })
     }
 
-    function setDeliveryAdress(data: DeliveryAdress){
+    function setDeliveryAdress(data: deliveryAdressData){
         setAdress(data)
     }
 
@@ -104,6 +123,10 @@ export function CartContextProvider({children}: CartContextProviderProps){
         paymentType: '',
     });
 
+    const { register, handleSubmit, control } = useForm<deliveryAdressData>({
+        resolver: zodResolver(deliveryAdressValidationSchema),
+    })
+
     console.log(deliveryAdress)
     return(
         <CartContext.Provider value={{
@@ -112,7 +135,10 @@ export function CartContextProvider({children}: CartContextProviderProps){
             cart,
             deliveryAdress,
             setDeliveryAdress,
-            removeItem
+            removeItem,
+            register,
+            handleSubmit,
+            control,
         }}>
             {children}
         </CartContext.Provider>

@@ -55,6 +55,7 @@ export const Tag = styled.div`
 export const BuyContainer = styled.div `
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     width: 100%;
     margin-top: 32px;
@@ -75,22 +76,20 @@ export const Price = styled.div`
     display: flex;
     align-items: baseline;
     gap: 4px;
-    flex: 1;
 `
 
 export const Actions = styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
-    flex: 1;
 `
 
 export const Counter = styled.div`
     display: flex;
     gap: 4px;
     align-items: center;
+    width: 100%;
 
-    max-width: 66px;
 
     padding: 8px;
     border-radius: 6px;
@@ -113,6 +112,7 @@ export const Counter = styled.div`
             color: ${props => props.theme.colors.brand.purple_dark};
             transition: 0.3s;
         }
+        cursor: pointer;
     }
 `
 
