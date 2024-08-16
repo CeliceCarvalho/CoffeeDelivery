@@ -15,56 +15,54 @@ import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { coffees } from "../../data.json";
 import { useNavigate } from "react-router-dom";
-interface DeliveryAdress{
-  cep: string,
-  street: string,
-  number: number,
-  comp: string,
-  neighborhood: string,
-  city: string,
-  uf: string,
-  paymentType: string,
+
+interface DeliveryAdress {
+  cep: string;
+  street: string;
+  number: number;
+  comp: string;
+  neighborhood: string;
+  city: string;
+  uf: string;
+  paymentType: string;
 }
 
 export function Checkout() {
   const { cart, updateAlreadyAddedItem, removeItem, handleSubmit, setDeliveryAdress } = useContext(CartContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  function setAdress(data: DeliveryAdress){
-    setDeliveryAdress(data)
-
-    navigate('/ConfirmedOrder')
+  function setAdress(data: DeliveryAdress) {
+    setDeliveryAdress(data);
+    navigate('/ConfirmedOrder');
   }
 
   const subTotal = cart.items.reduce((acc, item) => {
-    const CoffeeInCart = coffees.find((coffee) => coffee.id === item.id);
-    if (CoffeeInCart) {
-      return (
-        acc + item.quantity * parseFloat(CoffeeInCart.price.replace(",", "."))
-      );
+    const coffeeInCart = coffees.find((coffee) => coffee.id === item.id);
+    if (coffeeInCart) {
+      return acc + item.quantity * coffeeInCart.price; // Agora `price` é um number
     } else {
-      return 0;
+      return acc;
     }
   }, 0);
 
   const total = subTotal + 3.5;
 
   function handleUpdateQuantity(id: string, operator: 1 | -1) {
-    const ItemInCart = cart.items.find((item) => item.id === id);
+    const itemInCart = cart.items.find((item) => item.id === id);
 
-    if (ItemInCart) {
+    if (itemInCart) {
       const updatedItem = {
-        ...ItemInCart,
-        quantity: ItemInCart.quantity + operator,
+        ...itemInCart,
+        quantity: itemInCart.quantity + operator,
       };
       updateAlreadyAddedItem(updatedItem);
     }
   }
 
   function handleRemoveItem(id: string) {
-    const ItemInCart = cart.items.find((item) => item.id === id);
-    {
-      ItemInCart ? removeItem(ItemInCart) : 0;
+    const itemInCart = cart.items.find((item) => item.id === id);
+    if (itemInCart) {
+      removeItem(itemInCart);
     }
   }
 
@@ -76,38 +74,31 @@ export function Checkout() {
         <ChosenCoffeesCard>
           <section>
             {coffees.map((coffee) => {
-              const itemInCart = cart.items.find(
-                (item) => item.id === coffee.id
-              );
+              const itemInCart = cart.items.find((item) => item.id === coffee.id);
               const quantity = itemInCart ? itemInCart.quantity : 0;
               if (itemInCart) {
                 return (
-                  <CoffeeInCart>
-                    <img src={coffee.imgSrc} />
+                  <CoffeeInCart key={coffee.id}>
+                    <img src={coffee.imgSrc} alt={coffee.name} />
                     <article>
                       <p>{coffee.name}</p>
                       <section>
                         <Counter>
-                          <Minus
-                            onClick={() => handleUpdateQuantity(coffee.id, -1)}
-                          />
+                          <Minus onClick={() => handleUpdateQuantity(coffee.id, -1)} />
                           <p>{quantity}</p>
-                          <Plus
-                            onClick={() => handleUpdateQuantity(coffee.id, 1)}
-                          />
+                          <Plus onClick={() => handleUpdateQuantity(coffee.id, 1)} />
                         </Counter>
-                        <DeleteButton
-                          onClick={() => handleRemoveItem(coffee.id)}
-                        >
+                        <DeleteButton onClick={() => handleRemoveItem(coffee.id)}>
                           <Trash size={16} />
                           <h6>REMOVER</h6>
                         </DeleteButton>
                       </section>
                     </article>
-                    <CoffeePrice>R$ {coffee.price}</CoffeePrice>
+                    <CoffeePrice>R$ {coffee.price.toFixed(2).replace(".", ",")}</CoffeePrice>
                   </CoffeeInCart>
                 );
               }
+              return null; // Retorna `null` se o item não estiver no carrinho
             })}
           </section>
           <Prices>
@@ -124,9 +115,9 @@ export function Checkout() {
               <strong>R$ {total.toFixed(2).replace(".", ",")}</strong>
             </section>
           </Prices>
-            <ConfirmerButton onClick={handleSubmit(setAdress)}>
-              <p>CONFIRMAR PEDIDO</p>
-            </ConfirmerButton>
+          <ConfirmerButton onClick={handleSubmit(setAdress)}>
+            <p>CONFIRMAR PEDIDO</p>
+          </ConfirmerButton>
         </ChosenCoffeesCard>
       </ChosenCoffees>
     </CheckoutContainer>

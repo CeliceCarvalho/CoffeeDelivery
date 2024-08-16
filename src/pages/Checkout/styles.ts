@@ -6,10 +6,14 @@ export const CheckoutContainer = styled.main`
     display: flex;
     justify-content: space-between;
     gap: 32px;
-    margin-top: 40px;
+    margin-top: 40px ;
 
     h1{
         ${props => props.theme.titles.XS}
+    }
+
+    form{
+        width: 60%;
     }
 `
 
@@ -56,7 +60,7 @@ export const Prices = styled.article`
 
 export const CoffeeInCart = styled.div`
     display: flex;
-    justify-content: space-between;
+    gap: 8px;
     padding: 32px 0px;
 
     border-bottom: 1px solid ${props => props.theme.colors.base.button} ;

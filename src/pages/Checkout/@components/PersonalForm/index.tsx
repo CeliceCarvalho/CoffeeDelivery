@@ -1,6 +1,5 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "@phosphor-icons/react"
 import { FormContainer, FormTextField, PaymentOptions, PaymentOptionsButton } from "./styles"
-import { NavLink } from "react-router-dom"
 import { Controller } from "react-hook-form"
 import { useContext } from "react"
 import { CartContext } from "../../../../contexts/CartContext"
@@ -73,11 +72,6 @@ export function PersonalForm(){
                                 {...register('uf')}    
                             />
                         </div>
-                        <NavLink to="/confirmedOrder">
-                            <button>
-                                Ir
-                            </button>
-                        </NavLink>
                     </article>
                 </FormContainer>
                 <FormContainer>

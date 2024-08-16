@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
         background-color: ${props => props.theme.colors.base.background};
         display: flex;
         justify-content: center;
+        
     }
     :focus{
         outline: 0;
